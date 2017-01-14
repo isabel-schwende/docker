@@ -101,10 +101,18 @@ RUN tensorflow/tools/ci_build/builds/configured CPU \
     rm -rf /root/.cache
 # Clean up pip wheel and Bazel cache when done.
 
+
+# Set up project repository and data
+WORKDIR /root
+RUN git clone https://github.com/isabel-schwende/TensorFlowCode.git && \
+    cd TensorFlowCode && \
+    curl -fSsL -O http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/bvlc_alexnet.npy && \
+    curl -fSsL -O http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/dog.png
+
+
 # TensorBoard
 EXPOSE 6006
 # IPython
 EXPOSE 8888
-
 WORKDIR /root
 CMD ["/bin/bash"]
