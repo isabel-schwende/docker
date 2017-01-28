@@ -94,7 +94,7 @@ WORKDIR /tensorflow
 ENV CI_BUILD_PYTHON python
 
 RUN tensorflow/tools/ci_build/builds/configured CPU \
-    bazel build -c opt tensorflow/tools/pip_package:build_pip_package && \
+    bazel build -c opt tensorflow/tools/pip_package:build_pip_package --jobs=1 && \
     bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/pip && \
     pip --no-cache-dir install --upgrade /tmp/pip/tensorflow-*.whl && \
     rm -rf /tmp/pip && \
