@@ -80,6 +80,16 @@ RUN mkdir /bazel && \
     cd / && \
     rm -f /bazel/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh
 
+#test curl download pcre 
+RUN apt-get update && apt-get install -y libpcre3-dev
+RUN apt-get install -y wget 
+# install swig
+RUN wget https://sourceforge.net/projects/swig/files/swig/swig-3.0.8/swig-3.0.8.tar.gz && tar xvzf swig-3.0.8.tar.gz 
+RUN cd swig-3.0.8 && ./configure && make && make install
+RUN rm -rf swig-3.0.8.tar.gz
+RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib
+	
+	
 # Download and build TensorFlow.
 
 RUN git clone https://github.com/tensorflow/tensorflow.git && \
